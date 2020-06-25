@@ -17,11 +17,6 @@ jobs:
         arch:
           - 'x64'
     steps:
-      - run: ls -la foobarbaz.txt
-      - uses: actions/upload-artifact@v2
-        with:
-          name: foobarbaz.txt
-          path: foobarbaz.txt
       - run: wget -O- http://neuro.debian.net/lists/bionic.us-nh.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
       - run: sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
       - run: sudo apt-get update
@@ -36,7 +31,7 @@ jobs:
       - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMD))'
       - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMDExtra))'
       - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMDFull))'
-      - run: ls -la predictmd*
+      - run: ls -la
       - run: ls -la predictmd.sif
       - uses: actions/upload-artifact@v2
         with:
