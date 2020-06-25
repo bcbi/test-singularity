@@ -1,0 +1,20 @@
+name: singularity
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+      - staging
+      - trying
+
+jobs:
+  singularity:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        arch:
+          - x64
+    steps:
+      - run: which -a singularity
