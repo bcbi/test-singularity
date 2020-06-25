@@ -23,6 +23,11 @@ jobs:
       - run: sudo apt-get install -y singularity-container
       - run: which -a singularity
       - run: singularity --version
+      - run: rm -rf .singularity
+      - run: rm -rf ~/.singularity
+      - run: rm -rf $HOME/.singularity
       - run: singularity pull docker://dilumaluthge/predictmd
-      - run: singularity pull docker://aluthge/riqi_ml
-      - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; println(12345)'
+      - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import PredictMD; import PredictMDExtra; import PredictMDFull; import UnicodePlots'
+      - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMD))'
+      - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMDExtra))'
+      - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMDFull))'
