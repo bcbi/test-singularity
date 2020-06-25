@@ -17,6 +17,10 @@ jobs:
         arch:
           - 'x64'
     steps:
+      - uses: actions/upload-artifact@v2
+        with:
+          name: nonexistentfile.txt
+          path: nonexistent.txt
       - run: wget -O- http://neuro.debian.net/lists/bionic.us-nh.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
       - run: sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
       - run: sudo apt-get update
@@ -31,3 +35,7 @@ jobs:
       - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMD))'
       - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMDExtra))'
       - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMDFull))'
+      - uses: actions/upload-artifact@v2
+        with:
+          name: predictmd.sif
+          path: predictmd.sif
