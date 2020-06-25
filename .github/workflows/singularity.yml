@@ -17,6 +17,7 @@ jobs:
         arch:
           - 'x64'
     steps:
+      - run: ls -la nonexistent.txt
       - uses: actions/upload-artifact@v2
         with:
           name: nonexistentfile.txt
@@ -35,6 +36,8 @@ jobs:
       - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMD))'
       - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMDExtra))'
       - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMDFull))'
+      - run: ls -la predictmd*
+      - run: ls -la predictmd.sif
       - uses: actions/upload-artifact@v2
         with:
           name: predictmd.sif
