@@ -32,8 +32,8 @@ jobs:
       - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMDExtra))'
       - run: singularity exec docker://dilumaluthge/predictmd /usr/bin/julia -e 'import Pkg; Pkg.test(string(:PredictMDFull))'
       - run: ls -la
-      - run: ls -la predictmd.sif
+      - run: ls -la predictmd.simg
       - uses: actions/upload-artifact@v2
         with:
-          name: predictmd.sif
-          path: predictmd.sif
+          name: predictmd.simg
+          path: predictmd.simg
